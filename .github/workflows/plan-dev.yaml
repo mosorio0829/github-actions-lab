@@ -30,4 +30,4 @@ jobs:
         uses: cloudposse/github-action-setup-atmos@v2
 
       - name: Plan Storage Account
-        run: atmos terraform plan storage-orders-dev -s dev
+        run: atmos terraform plan storage-dev -s dev
