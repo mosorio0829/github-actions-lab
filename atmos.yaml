@@ -1,0 +1,14 @@
+# atmos.yaml
+base_path: "."
+components:
+  terraform:
+    base_path: "components/terraform"
+    apply_auto_approve: false
+    deploy_run_init: true
+stacks:
+  base_path: "stacks"
+  name_pattern: "{stage}"
+  included_paths:
+    - "deploy/**/*.yaml"
+  excluded_paths:
+    - "catalog/**/*.yaml"

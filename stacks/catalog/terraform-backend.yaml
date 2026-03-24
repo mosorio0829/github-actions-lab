@@ -1,0 +1,21 @@
+# stacks/catalog/terraform-backend.yaml
+
+#components:
+#  terraform:
+#    backend_type: azurerm
+#    backend:
+#      # Estos valores ahora son dinámicos
+#      resource_group_name: "rg-terraform-state-${var.stage}"
+#      storage_account_name: "sttfstate${var.stage}001"
+#      container_name: "tfstates"
+#      key: "{{ .Component }}.tfstate"
+
+terraform:
+  backend_type: azurerm
+  backend:
+    azurerm:
+      resource_group_name: "atmos-rg"
+      storage_account_name: "maor${var.stage}01"
+      container_name: "tfstates"
+      # DINÁMICO: Crea un archivo tipo 'dev/azure-function.tfstate'
+      key: "{{ .Stage }}/{{ .Component }}.tfstate"

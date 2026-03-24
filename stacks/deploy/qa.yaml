@@ -1,0 +1,42 @@
+import:
+  - catalog/terraform-backend
+
+vars:
+  stage: qa
+  location: eastus
+  resource_group_name: "atmos-rg" # Asumimos que el RG ya existe
+  subscription_id: "84833f3d-47f3-4c48-839a-01b090956535"
+
+components:
+  terraform:
+    # 1. Monitoreo
+    app-insights-dev:
+      metadata:
+        component: app-insights
+      vars:
+        name: "appi-qa-001"
+
+    # 2. Almacenamiento
+    storage-orders-dev:
+      metadata:
+        component: storage-account
+      vars:
+        name: "maorqa001"
+
+    # 3. Plan de Servicio
+    plan-orders-dev:
+      metadata:
+        component: service-plan
+      vars:
+        name: "plan-qa-001"
+
+    # 4. Azure Function (El consumidor)
+    function-orders-dev:
+      metadata:
+        component: azure-function
+      vars:
+        name: "func-qa-001"
+        # Aquí conectamos los puntos: pasamos los nombres exactos de arriba
+        #app_insights_name: "appi-orders-qa-001"
+        storage_account_name: "maorqa001"
+        service_plan_name: "plan-qa-001"
