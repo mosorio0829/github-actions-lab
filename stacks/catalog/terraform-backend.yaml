@@ -14,8 +14,8 @@ terraform:
   backend_type: azurerm
   backend:
     azurerm:
-      resource_group_name: "kml_rg_main-b1d476a99de04677"
-      storage_account_name: "ststate${var.stage}01"
+      resource_group_name: "atmos-rg"
+      storage_account_name: "maor${var.stage}01"
       container_name: "tfstates"
       # DINÁMICO: Crea un archivo tipo 'dev/azure-function.tfstate'
       key: "{{ .Stage }}/{{ .Component }}.tfstate"
