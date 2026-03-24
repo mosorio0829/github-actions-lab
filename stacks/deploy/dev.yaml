@@ -5,8 +5,8 @@ import:
 vars:
   stage: dev
   location: eastus
-  resource_group_name: "kml_rg_main-5d1ac0f7869848de" # Asumimos que el RG ya existe
-  subscription_id: "a2b28c85-1948-4263-90ca-bade2bac4df4"
+  resource_group_name: "atmos-rg" # Asumimos que el RG ya existe
+  subscription_id: "84833f3d-47f3-4c48-839a-01b090956535"
 
 components:
   terraform:
@@ -22,7 +22,7 @@ components:
       metadata:
         component: storage-account
       vars:
-        name: "stmaordev001"
+        name: "maordev001"
 
     # 3. Plan de Servicio
     plan-dev:
@@ -39,5 +39,5 @@ components:
         name: "func-maor-dev01"
         # Aquí conectamos los puntos: pasamos los nombres exactos de arriba
         #app_insights_name: "appi-dev-001"
-        storage_account_name: "stmaordev001"
+        storage_account_name: "maordev001"
         service_plan_name: "plan-dev-001"
