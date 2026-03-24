@@ -1,0 +1,43 @@
+# stacks/deploy/dev.yaml
+import:
+  - catalog/terraform-backend
+
+vars:
+  stage: dev
+  location: eastus
+  resource_group_name: "kml_rg_main-5d1ac0f7869848de" # Asumimos que el RG ya existe
+  subscription_id: "a2b28c85-1948-4263-90ca-bade2bac4df4"
+
+components:
+  terraform:
+    # 1. Monitoreo
+    app-insights-dev:
+      metadata:
+        component: app-insights
+      vars:
+        name: "appi-dev-001"
+
+    # 2. Almacenamiento
+    storage-dev:
+      metadata:
+        component: storage-account
+      vars:
+        name: "stmaordev001"
+
+    # 3. Plan de Servicio
+    plan-dev:
+      metadata:
+        component: service-plan
+      vars:
+        name: "plan-dev-001"
+
+    # 4. Azure Function (El consumidor)
+    function-dev:
+      metadata:
+        component: azure-function
+      vars:
+        name: "func-maor-dev01"
+        # Aquí conectamos los puntos: pasamos los nombres exactos de arriba
+        #app_insights_name: "appi-dev-001"
+        storage_account_name: "stmaordev001"
+        service_plan_name: "plan-dev-001"

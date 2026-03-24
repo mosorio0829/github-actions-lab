@@ -1,0 +1,32 @@
+name: Deploy Atmos Dev
+on:
+  push:
+    branches:
+      - main # Se ejecutará cada vez que envíes código a la rama main
+
+permissions:
+  id-token: write # Requisito estricto para OIDC
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup Atmos
+        uses: cloudposse/github-action-setup-atmos@v2
+
+      - name: Deploy Storage Account
+        run: atmos terraform apply storage-orders-dev -s dev --auto-approve
